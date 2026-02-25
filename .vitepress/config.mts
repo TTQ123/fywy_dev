@@ -1,28 +1,44 @@
-import { defineConfig } from 'vitepress'
-
-// https://vitepress.dev/reference/site-config
+import markdownItAnchor from "markdown-it-anchor";
+import { defineConfig } from "vitepress";
+// import markdownItFoo from 'markdown-it-foo'
+import MarkdownIt from "markdown-it";
+import nav from "./nav.mts";
+import sidebar from "./sidebar.mts";
 export default defineConfig({
-  title: "My Awesome Project",
-  description: "A VitePress Site",
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
-    ],
+    // github的文件夹名称(打包要展示的那个文件夹)
+    base: "/fywy_md_dist/",
+    lang: "zh-CN",
+    title: "风月无涯_Blog",
+    description: "A VitePress Site",
+    srcDir: "docs",
+    markdown: {
+        anchor: {
+            permalink: markdownItAnchor.permalink.headerLink(),
+        },
+        toc: { level: [1, 2] },
+        config: (md) => {
+            md.use(MarkdownIt);
+        },
+    },
+    themeConfig: {
+        logo: "/favicon.ico",
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
+        // 搜索
+        search: {
+            provider: "local",
+        },
+        // 导航栏
+        nav,
 
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
-  }
-})
+        // 侧边栏
+        sidebar: { ...sidebar } as any,
+
+        // 跳转链接
+        socialLinks: [{ icon: "github", link: "https://github.com/TTQ123" }],
+
+        footer: {
+            message: "本网站为个人创作",
+            copyright: "Copyright © 2019-present TTQ",
+        },
+    },
+});
