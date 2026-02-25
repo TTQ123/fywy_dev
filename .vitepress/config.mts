@@ -6,7 +6,7 @@ import nav from "./nav.mts";
 import sidebar from "./sidebar.mts";
 export default defineConfig({
     // github的文件夹名称(打包要展示的那个文件夹)
-    base: "/",
+    base: "/fywy_dev/",
     lang: "zh-CN",
     title: "风月无涯_Blog",
     description: "A VitePress Site",
